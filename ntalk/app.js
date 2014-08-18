@@ -1,11 +1,13 @@
-var express = require("express"), routes = require("./routes/index"), users = require("./routes/users"), app=express();
+var express = require("express"), load = require("express-load"), app=express();
 
-app.set('view', __dirname + '/views');
+app.set('view', __dirname + '/public');
 app.set('view engine', 'ejs');
 
-app.use('/', routes);
-app.use('/usuarios',users);
+app.use(express.static(__dirname + '/public'));
 
-app.listen(3000, function () {
+
+load('models').then('controllers').then('routes').into(app);
+
+app.listen(process.env.PORT, function () {
     console.log("Ntalk no ar.");
 });
