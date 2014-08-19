@@ -1,0 +1,30 @@
+<% include ../header %>
+<script src="https://cdn.socket.io/socket.io-1.0.6.js"></script>
+<script>
+var socket = io('https://exemplos-livro-nodejs-c9-kairogyn.c9.io');
+
+
+socket.on('send-client', function (msg) {
+    var chat = document.getElementById('chat');
+    chat.innerHTML += msg;
+});
+
+var enviar = function()
+{
+    alert(socket.connected);
+var msg = document.getElementById('msg');
+socket.emit("send-server", msg.value);
+};
+
+</script>
+        <header>
+           <h2>Ntalk - Chat</h2>
+        </header>
+        <section>
+        <pre id="chat"></pre>
+        <input type="hidden" id="nome" value="<%-usuario.nome%>">
+        <input type="text" id="msg" name="msg" placeholder="Mensagem">
+        <button onclick="enviar();">Enviar</button>
+        </section>
+<% include ../exit %>
+<% include ../footer %>
