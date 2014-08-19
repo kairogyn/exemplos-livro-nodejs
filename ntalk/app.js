@@ -4,6 +4,7 @@ var bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
 var expressSession = require('express-session');
 var methodOverride = require('method-override');
+var error = require('./middlewares/error');
 var app = express();
 
 app.set('views', __dirname + '/views');
@@ -15,9 +16,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true }));
 app.use(methodOverride('_method'));
 app.use(express.static(__dirname + '/public'));
+app.use('/bower_components',  express.static(__dirname + '/bower_components'));
 
 
 load('models').then('controllers').then('routes').into(app);
+
+app.use(error.notFound);
+app.use(error.serverError);
 
 app.listen(process.env.PORT, function () {
     console.log("Ntalk no ar.");
