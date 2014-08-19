@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+   <% include ../header %>
+        <header>
+           
+            <h2>Editar Contato</h2>
+        </header>
+        <section>
+        <form  action="/contato/<%- id %>?_method=put" method="post" > 
+        <labe>Nome</labe>
+        <input type="text" name="contato[nome]" value="<%- contato.nome %>">
+        <labe>E-mail</labe>
+        <input type="text" name="contato[email]" value="<%- contato.email %>">
+        <button type="submit">Atualizar</button>
+        </form>
+        </section>
+<% include ../exit %>
+<% include ../footer %>

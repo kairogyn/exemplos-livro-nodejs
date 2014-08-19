@@ -1,13 +1,32 @@
-<!DOCTYPE html>
-<html>
-   <% include ../header %>
+<% include ../header %>
         <header>
-            <h1>
-                Ntalk
-            </h1>
-            <h2>Lista de Contatos</h2>
+           <h2>Agenda de Contatos</h2>
         </header>
         <section>
+        <form  action="/contato" method="post" > 
+        <input type="text" name="contato[nome]" placehoder="Nome">
+        <input type="text" name="contato[email]" placehoder="E-mail">
+        <button type="submit">Cadastrar</button>
+        </form>
+        <table>
+        <thead>
+        <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Ação</th>
+        </tr>
+        </thead>
+        <% contatos.forEach(function(contato,index) { %>
+        <tr>
+        <td><%- contato.nome%></td>
+        <td><%- contato.email%></td>
+        <td><a href="/contato/<%-index%>">Detalhes</a></td>
+        </tr>
+        
+        <%
+        })
+        %>
+        </table>
            <p>Bem-vindo <%- usuario.nome%></p>
         </section>
 <% include ../exit %>

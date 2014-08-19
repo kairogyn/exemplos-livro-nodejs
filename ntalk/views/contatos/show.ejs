@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+   <% include ../header %>
+        <header>
+           
+            <h2>Dados do Contato</h2>
+        </header>
+        <section>
+        <form  action="/contato/<%- id %>?_method=delete" method="post" > 
+        <p><labe>Nome: </labe><%- contato.nome %></p>
+        <p><labe>E-mail: </labe><%- contato.email %></p>
+        <p><button type="submit">Excluir</button><a href="/contato/<%-id%>/editar">Editar</a></p>
+        
+        </form>
+        </section>
+<% include ../exit %>
+<% include ../footer %>

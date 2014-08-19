@@ -33,21 +33,13 @@ module.exports = function(app){
 			res.redirect('/contatos')
 		},
 		destroy: function (req, res) {
+			console.log("passei pelo destroy");
 			var usuario = req.session.usuario;
 			var id = req.params.id;
 			
-			usuario.contatos.slice(id,1);
+			req.session.usuario.contatos.splice(id,1);
 			res.redirect('/contatos')
 		}
 	}
-};
-module.exports = function(app){
-	var ContatosController = {
-		index: function(req, res){
-			var usuario = req.session.usuario;
-			var params = {usuario: usuario};
-			res.render('contatos/index',params);
-		}
-	};
-	return ContatosController;
+		return ContatoController;
 };
