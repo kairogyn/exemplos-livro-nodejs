@@ -37,7 +37,7 @@ var io = sio.listen(server);
 io.sockets.on('connection', function (client) {
  client.on('send-server', function (data) {
       console.log("recebiii uuhuuu");
-      var msg = "<b>" + data.nome +": </b>"+data.msg+"<br>";
+      var msg = "<b>" + data.nome +": </b>" +data.msg.replace("<br>","") +"<br>";
       client.emit('send-client',msg);
       client.broadcast.emit('send-client',msg);
   });
