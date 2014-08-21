@@ -1,0 +1,9 @@
+<script src="/socket.io/socket.io.js">
+</script>
+<script>
+    var socket = io('https://exemplos-livro-nodejs-c9-kairogyn.c9.io');
+    socket.on('new-message', function(data){
+        var chat = document.getElementById('chat_'+data.email);
+        chat.href += '?sala=' + data.sala;
+    });
+</script>

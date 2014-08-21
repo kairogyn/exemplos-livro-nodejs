@@ -10,16 +10,28 @@ var error = require('./middlewares/error');
 var app = express();
 var server = require('http').Server(app);
 var sio = require('socket.io');
+var cookie = cookieParser(SECRET);
+var store = new expressSession.MemoryStore();
 
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
-app.use(cookieParser('ntalk'));
-app.use(expressSession());
+app.use(cookie);
+app.use(expressSession({
+   secret: SECRET,
+   name:KEY,
+   resave: true,
+   saveUninitialized: true,
+   store: store
+    }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true }));
 app.use(methodOverride('_method'));
 app.use(express.static(__dirname + '/public'));
+
+
+
+
 
 load('models').then('controllers').then('routes').into(app);
 
@@ -33,12 +45,19 @@ server.listen(port, function () {
 
 
 var io = sio.listen(server);
-
-io.sockets.on('connection', function (client) {
- client.on('send-server', function (data) {
-      console.log("recebiii uuhuuu");
-      var msg = "<b>" + data.nome +": </b>" +data.msg.replace("<br>","") +"<br>";
-      client.emit('send-client',msg);
-      client.broadcast.emit('send-client',msg);
+io.use(function(socket, next) {
+  var data = socket.request;
+  cookie(data, {}, function(err) {
+    var sessionID = data.signedCookies[KEY];
+    store.get(sessionID, function(err, session) {
+      if (err || !session) {
+        return next(new Error('acesso negado'));
+      } else {
+        socket.handshake.session = session;
+        return next();
+      }
+    });
   });
 });
+
+load('sockets').into(io);

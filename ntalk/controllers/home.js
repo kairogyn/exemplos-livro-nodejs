@@ -11,7 +11,7 @@ module.exports = function(app){
 				var usuario = req.body.usuario;
 				usuario['contatos'] = [];
 				req.session.usuario = usuario;
-				res.redirect('/chat');
+				res.redirect('/contatos');
 			}
 			else
 			{
