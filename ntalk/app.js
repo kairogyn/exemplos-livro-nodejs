@@ -12,7 +12,8 @@ var server = require('http').Server(app);
 var sio = require('socket.io');
 var cookie = cookieParser(SECRET);
 var store = new expressSession.MemoryStore();
-
+var mongoose = require("mongoose");
+global.db = mongoose.connect('mongodb://kairogyn:a4k6y9h3@kahana.mongohq.com:10090/ntalk');
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');

@@ -6,7 +6,7 @@
             <h2>Editar Contato</h2>
         </header>
         <section>
-        <form  action="/contato/<%- id %>?_method=put" method="post" > 
+        <form  action="/contato/<%- contato._id %>?_method=put" method="post" > 
         <labe>Nome</labe>
         <input type="text" name="contato[nome]" value="<%- contato.nome %>">
         <labe>E-mail</labe>

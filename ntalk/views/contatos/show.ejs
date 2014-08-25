@@ -6,10 +6,10 @@
             <h2>Dados do Contato</h2>
         </header>
         <section>
-        <form  action="/contato/<%- id %>?_method=delete" method="post" > 
+        <form  action="/contato/<%- contato._id %>?_method=delete" method="post" > 
         <p><labe>Nome: </labe><%- contato.nome %></p>
         <p><labe>E-mail: </labe><%- contato.email %></p>
-        <p><button type="submit">Excluir</button><a href="/contato/<%-id%>/editar">Editar</a></p>
+        <p><button type="submit">Excluir</button><a href="/contato/<%-contato._id%>/editar">Editar</a></p>
         
         </form>
         </section>
